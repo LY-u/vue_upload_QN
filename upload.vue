@@ -17,7 +17,28 @@
 
 <script>
 
-import Api from "@/sdk/sdk"
+class Health extends SdkBase {
+  constructor (key) {
+    super(key)
+    // this.router = '/api/hotel'
+  }
+  getUploadToken(){
+    return this._post('/api/Common/GetUploadToken')
+  }
+  uploadToQN(url, token, file){
+    let name = this.newGuid()
+    name += '.jpg'
+    let formData = new FormData()
+    formData.append('file', file)
+    formData.append('key', name)
+    formData.append("token", token)
+    let config = {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }
+    return axios.post(url, formData, config)
+  }
+}
+  
 let api = new Api().health;
 
 export default {
