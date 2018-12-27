@@ -27,7 +27,9 @@ class Health extends SdkBase {
   }
   uploadToQN(url, token, file){
     let name = this.newGuid()
-    name += '.jpg'
+    let types = file.name.split('.')
+    let file_type = types[types.length-1]
+    name = name + '.' + file_type
     let formData = new FormData()
     formData.append('file', file)
     formData.append('key', name)
